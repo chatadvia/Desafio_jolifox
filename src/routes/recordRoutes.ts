@@ -53,6 +53,10 @@ const router = Router();
  *                 type: string
  *                 example: "Descrição da imagem."
  *                 description: A descrição do conteúdo da imagem.
+ *               imageContent:
+ *                 type: string
+ *                 example: "Image Content"
+ *                 description: image content.
  *               imageFile:
  *                 type: object
  *                 properties:
@@ -165,6 +169,10 @@ router.get('/records/:id', getRecordById);
  *                 type: string
  *                 example: "Descrição da imagem."
  *                 description: A descrição do conteúdo da imagem.
+ *               imageContent:
+ *                 type: string
+ *                 example: "Image Content update"
+ *                 description: image content update.
  *               imageFile:
  *                 type: object
  *                 properties:

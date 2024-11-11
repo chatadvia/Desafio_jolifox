@@ -4,6 +4,11 @@ import { CreateRecordDTO, UpdateRecordDTO } from '../dto/record';
 
 dotenv.config();
 const databaseId = process.env.NOTION_DATABASE_ID as string;
+const notionPropertyMap = {
+  "image_content": "image content",
+};
+
+const propertyName = notionPropertyMap["image_content"] || "image content";
 
 export const createRecord = async (createRecordDTO: CreateRecordDTO) => {
   try {
@@ -75,15 +80,15 @@ export const createRecord = async (createRecordDTO: CreateRecordDTO) => {
             },
           ],
         },
-        // ImageContent: { 
-        //   rich_text: [
-        //     {
-        //       text: {
-        //         content: createRecordDTO.imageContent || "Image Content",
-        //       },
-        //     },
-        //   ],
-        // },
+        [propertyName]: { 
+          rich_text: [
+            {
+              text: {
+                content: createRecordDTO.imageContent || "Image Content",
+              },
+            },
+          ],
+        },
       },
     });
 
@@ -199,7 +204,7 @@ export const updateRecord = async (id: string, updateRecordDTO: UpdateRecordDTO)
     };
 
     if (updateRecordDTO.imageContent) {
-      propertiesToUpdate.ImageContent = {
+      propertiesToUpdate[propertyName] = {
         rich_text: [
           {
             text: {
