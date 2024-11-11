@@ -1,21 +1,28 @@
 export interface CreateRecordDTO {
-    title: string;
+    company?: string;
     campaign?: string;
     description?: string;
     plannedDate?: string;
     where?: string;
     language?: string;
-    imageFile?: any;
+    languageColor?: string;
+    content?: string;
+    imageFile?: ImageFile;
     imageContent?: string;
   }
 
   export interface UpdateRecordDTO {
-    title: string;
+    company: string;
     campaign?: string;
     description?: string;
     plannedDate?: string;
     where?: string;
     language?: string;
-    imageFile?: any;
+    imageFile?: ImageFile;
     imageContent?: string;
+  }
+
+  export interface ImageFile {
+    url?: string;
+    name?: string;
   }

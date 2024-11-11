@@ -29,7 +29,7 @@ const router = Router();
  *           schema:
  *             type: object
  *             properties:
- *               title:
+ *               company:
  *                 type: string
  *                 example: "Novo Registro"
  *                 description: O título do novo registro.
@@ -49,10 +49,21 @@ const router = Router();
  *                 type: string
  *                 example: "Portuguese"
  *                 description: O idioma do registro.
- *               image content:
+ *               content:
  *                 type: string
- *                 example: "Descrição da imagem do evento."
+ *                 example: "Descrição da imagem."
  *                 description: A descrição do conteúdo da imagem.
+ *               imageFile:
+ *                 type: object
+ *                 properties:
+ *                   url:
+ *                     type: string
+ *                     example: "https://unsplash.com/pt-br/fotografias/um-bisao-com-chifres-em-pe-na-neve-Qf4a2Ikg1Ns"
+ *                     description: "A URL da imagem"
+ *                   name:
+ *                     type: string
+ *                     example: "Imagem"
+ *                     description: "O nome da imagem"
  *     responses:
  *       201:
  *         description: Registro criado com sucesso
@@ -130,12 +141,41 @@ router.get('/records/:id', getRecordById);
  *           schema:
  *             type: object
  *             properties:
- *               title:
+ *               company:
  *                 type: string
- *                 example: "Registro Atualizado"
+ *                 example: "Atualização de registro"
+ *                 description: O título do novo registro.
+ *               campaign:
+ *                 type: string
+ *                 example: "Campanha Primavera Atualizadas"
+ *                 description: A campanha associada ao registro.
  *               description:
  *                 type: string
- *                 example: "Descrição atualizada do registro"
+ *                 example: "Descrição detalhada do evento."
+ *                 description: A descrição do registro.
+ *               where:
+ *                 type: string
+ *                 example: "São Paulo"
+ *                 description: O local onde o evento ocorrerá.
+ *               language:
+ *                 type: string
+ *                 example: "Portuguese"
+ *                 description: O idioma do registro.
+ *               content:
+ *                 type: string
+ *                 example: "Descrição da imagem."
+ *                 description: A descrição do conteúdo da imagem.
+ *               imageFile:
+ *                 type: object
+ *                 properties:
+ *                   url:
+ *                     type: string
+ *                     example: "https://unsplash.com/pt-br/fotografias/um-close-up-de-um-gato-em-uma-cama-gz0rGe7mhL8"
+ *                     description: "A URL da imagem"
+ *                   name:
+ *                     type: string
+ *                     example: "Imagem"
+ *                     description: "O nome da imagem"
  *     responses:
  *       200:
  *         description: Registro atualizado com sucesso
@@ -163,6 +203,8 @@ router.put('/records/:id', updateRecord);
  *     responses:
  *       200:
  *         description: Registro excluído com sucesso
+ *       204:
+ *         description: Registro excluído
  *       404:
  *         description: Registro não encontrado
  */

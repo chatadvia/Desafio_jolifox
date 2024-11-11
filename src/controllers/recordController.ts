@@ -4,7 +4,7 @@ import * as recordService from '../services/recordService';
 export const createRecord = async (req: Request, res: Response) => {
   try {
     const { 
-      title, 
+      company, 
       campaign, 
       description, 
       where, 
@@ -13,7 +13,7 @@ export const createRecord = async (req: Request, res: Response) => {
       imageContent 
     } = req.body;
     const response = await recordService.createRecord({
-      title,
+      company,
       campaign,
       description,
       where,
@@ -40,8 +40,23 @@ export const getRecordById = async (req: Request, res: Response) => {
 export const updateRecord = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { title } = req.body;
-    const response = await recordService.updateRecord(id, title);
+    const { 
+      company, 
+      campaign, 
+      description, 
+      where, 
+      language, 
+      imageFile, 
+      imageContent 
+    } = req.body;
+    const response = await recordService.updateRecord(id, {
+      company, 
+      campaign, 
+      description, 
+      where, 
+      language, 
+      imageFile, 
+      imageContent });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ error: 'Erro ao atualizar registro' });

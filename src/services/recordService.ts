@@ -16,7 +16,7 @@ export const createRecord = async (createRecordDTO: CreateRecordDTO) => {
           title: [
             {
               text: {
-                content: createRecordDTO.title || "",
+                content: createRecordDTO.company || "",
               },
             },
           ],
@@ -48,33 +48,42 @@ export const createRecord = async (createRecordDTO: CreateRecordDTO) => {
           rich_text: [
             {
               text: {
-                content: createRecordDTO.where || "",
+                content: createRecordDTO.where || "Linkedin",
               },
             },
           ],
         },
         Language: {
           select: {
-            name: createRecordDTO.language || "",
+            name: createRecordDTO.language || "Portuguese",
           },
         },
-        Image: {
-          files: [
-            {
-              name: createRecordDTO.imageFile.name,
-              external: { url: createRecordDTO.imageFile.url },
-            },
-          ],
-        },
-        ImageContent: {
+        Content: {
           rich_text: [
             {
               text: {
-                content: createRecordDTO.imageContent || "",
+                content: createRecordDTO.content || "Exemplo content",
               },
             },
           ],
         },
+        Image: {
+          files: [
+            {
+              name: createRecordDTO.imageFile?.name || 'Image from URL',
+              external: { url: createRecordDTO.imageFile?.url || "https://unsplash.com/pt-br/fotografias/um-close-up-de-um-gato-em-uma-cama-gz0rGe7mhL8" },
+            },
+          ],
+        },
+        // ImageContent: { 
+        //   rich_text: [
+        //     {
+        //       text: {
+        //         content: createRecordDTO.imageContent || "Image Content",
+        //       },
+        //     },
+        //   ],
+        // },
       },
     });
 
@@ -122,17 +131,17 @@ export const updateRecord = async (id: string, updateRecordDTO: UpdateRecordDTO)
 
     const propertiesToUpdate: Record<string, any> = {};
 
-    if (updateRecordDTO.title) {
+    if (updateRecordDTO.company) {
       propertiesToUpdate.Company = {
         title: [
           {
             text: {
-              content: updateRecordDTO.title,
+              content: updateRecordDTO.company,
             },
           },
         ],
       };
-    }
+    };
 
     if (updateRecordDTO.campaign) {
       propertiesToUpdate.Campaign = {
@@ -144,7 +153,7 @@ export const updateRecord = async (id: string, updateRecordDTO: UpdateRecordDTO)
           },
         ],
       };
-    }
+    };
 
     if (updateRecordDTO.description) {
       propertiesToUpdate.Description = {
@@ -156,7 +165,7 @@ export const updateRecord = async (id: string, updateRecordDTO: UpdateRecordDTO)
           },
         ],
       };
-    }
+    };
 
     if (updateRecordDTO.where) {
       propertiesToUpdate.Where = {
@@ -168,7 +177,7 @@ export const updateRecord = async (id: string, updateRecordDTO: UpdateRecordDTO)
           },
         ],
       };
-    }
+    };
 
     if (updateRecordDTO.language) {
       propertiesToUpdate.Language = {
@@ -176,18 +185,18 @@ export const updateRecord = async (id: string, updateRecordDTO: UpdateRecordDTO)
           name: updateRecordDTO.language,
         },
       };
-    }
+    };
 
-    if (updateRecordDTO.imageFile) {
+    if (updateRecordDTO.imageFile && updateRecordDTO.imageFile.url) {
       propertiesToUpdate.Image = {
         files: [
           {
-            name: updateRecordDTO.imageFile.name,
+            name: updateRecordDTO.imageFile.name || '',
             external: { url: updateRecordDTO.imageFile.url },
           },
         ],
       };
-    }
+    };
 
     if (updateRecordDTO.imageContent) {
       propertiesToUpdate.ImageContent = {
@@ -199,10 +208,9 @@ export const updateRecord = async (id: string, updateRecordDTO: UpdateRecordDTO)
           },
         ],
       };
-    }
+    };
 
     const pageId = record.id;
-
     const response = await notionClient.pages.update({
       page_id: pageId,
       properties: propertiesToUpdate,
