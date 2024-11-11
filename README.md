@@ -13,7 +13,7 @@
     npm install
 
 ## 3-Executar os Testes de Service
-    npm test para iniciar testes de service
+    npm test
 
 ## 4-Iniciar o servidor
     npm run dev 
